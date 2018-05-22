@@ -1,4 +1,4 @@
-package com.fibremint.blockchain;
+package blockchain;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;

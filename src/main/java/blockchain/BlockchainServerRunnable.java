@@ -1,10 +1,9 @@
-package com.fibremint.blockchain;
+package blockchain;
 
 import java.io.*;
 import java.net.Socket;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;

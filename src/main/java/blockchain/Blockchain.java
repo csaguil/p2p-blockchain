@@ -1,7 +1,6 @@
-package com.fibremint.blockchain;
+package blockchain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 
 public class Blockchain {
