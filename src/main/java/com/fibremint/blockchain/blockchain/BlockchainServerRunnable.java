@@ -1,8 +1,12 @@
+package com.fibremint.blockchain.blockchain;
+
+import com.fibremint.blockchain.message.MessageSenderRunnable;
+import com.fibremint.blockchain.net.ServerInfo;
+
 import java.io.*;
 import java.net.Socket;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,9 +41,11 @@ public class BlockchainServerRunnable implements Runnable{
         		String[] tokens = inputLine.split("\\|");
         		switch (tokens[0]) {
         			case "tx":
+        				this.txHandler(inputLine, outWriter);
         			case "pb":
+        				this.pbHandler(outWriter);
         			case "cc":
-        				this.serverHandler(inputLine, outWriter, tokens);
+        				//this.serverHandler(inputLine, outWriter, tokens);
         				
         			case "hb":
         			case "si":
@@ -68,6 +74,7 @@ public class BlockchainServerRunnable implements Runnable{
 
 //Request handlers//-----------------------   
 
+    // catch up
 	public void cuHandler(String[] tokens) {
 		try (ObjectOutputStream outStream = new ObjectOutputStream(clientSocket.getOutputStream())){
 			if (tokens.length == 1) {
@@ -78,28 +85,29 @@ public class BlockchainServerRunnable implements Runnable{
 			
 			} else {
 			//cu|<block's hash> case
-				Block cur = blockchain.getHead();
+				Block currentBlock = blockchain.getHead();
 				while (true) {
-					if (Base64.getEncoder().encodeToString(cur.calculateHash()).equals(tokens[1])) {
-						outStream.writeObject(cur);
+					if (Base64.getEncoder().encodeToString(currentBlock.calculateHash()).equals(tokens[1])) {
+						outStream.writeObject(currentBlock);
 						outStream.flush();
 						return;
 						
 					}
-					if (cur == null) {
+					if (currentBlock == null) {
 						break;
 					}
-					cur = cur.getPreviousBlock();
+					currentBlock = currentBlock.getPreviousBlock();
 					
 				}
-				outStream.writeObject(cur);
+				outStream.writeObject(currentBlock);
 				outStream.flush();
 			
 			}
 		} catch (Exception e) {
 		}
 	}
-	
+
+	// last block
     public boolean lbHandler(String inputLine, String[] tokens) {
     	try {
     		String encodedHash;
@@ -174,6 +182,7 @@ public class BlockchainServerRunnable implements Runnable{
     	return false;
     }
 
+    /*
     public void serverHandler(String inputLine, PrintWriter outWriter, String[] tokens) {
         try {
             switch (tokens[0]) {
@@ -198,7 +207,33 @@ public class BlockchainServerRunnable implements Runnable{
         	e.printStackTrace();
         }
     }
-    
+    */
+
+    // transaction
+    public void txHandler(String inputLine, PrintWriter outWriter) {
+    	try {
+    		if (this.blockchain.addTransaction(inputLine))
+    			outWriter.print("Accepted\n\n");
+    		else {
+    			outWriter.print("Rejected\n\n");
+    			outWriter.flush();
+			}
+		} catch (Exception e) {
+    		e.printStackTrace();
+		}
+	}
+
+	// print block
+	public void pbHandler(PrintWriter outWriter) {
+    	try {
+    		outWriter.print(blockchain.toString() + "\n");
+    		System.out.println(blockchain.toString() + "\n");
+    		outWriter.flush();
+		} catch (Exception e) {
+    		e.printStackTrace();
+		}
+	}
+
     public void heartBeatHandler(BufferedReader bufferedReader, String line, String[] tokens) {
         try {	
             String remoteIP = (((InetSocketAddress) clientSocket.getRemoteSocketAddress()).getAddress()).toString().replace("/", "");

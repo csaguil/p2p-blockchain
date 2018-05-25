@@ -1,3 +1,7 @@
+package com.fibremint.blockchain.blockchain;
+
+import com.fibremint.blockchain.blockchain.Blockchain;
+
 import java.security.SecureRandom;
 
 public class PeriodicCommitRunnable implements Runnable{

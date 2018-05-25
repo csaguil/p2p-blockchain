@@ -1,3 +1,5 @@
+package com.fibremint.blockchain.net;
+
 public class ServerInfo {
 
     private String host;

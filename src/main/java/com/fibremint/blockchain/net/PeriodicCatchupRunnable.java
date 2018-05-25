@@ -1,14 +1,13 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.Socket;
-import java.net.InetSocketAddress;
+package com.fibremint.blockchain.net;
+
+import com.fibremint.blockchain.blockchain.Blockchain;
+import com.fibremint.blockchain.message.MessageSenderRunnable;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.io.*;
 import java.util.Base64;
 import java.util.Collections;
-import java.util.Set;
 
 public class PeriodicCatchupRunnable implements Runnable {
 	private Blockchain blockchain;
