@@ -1,15 +1,15 @@
-package blockchain;
+package com.fibremint.blockchain.net;
 
 import java.util.Date;
 import java.util.HashMap;
 
-public class PeriodicHeartBeatRunnable implements Runnable {
+public class HeartBeatPeriodicRunnable implements Runnable {
 
     private HashMap<ServerInfo, Date> serverStatus;
     private int sequenceNumber;
     private int localPort;
 
-    public PeriodicHeartBeatRunnable(HashMap<ServerInfo, Date> serverStatus, int localPort) {
+    public HeartBeatPeriodicRunnable(HashMap<ServerInfo, Date> serverStatus, int localPort) {
         this.serverStatus = serverStatus;
         this.sequenceNumber = 0;
         this.localPort = localPort;

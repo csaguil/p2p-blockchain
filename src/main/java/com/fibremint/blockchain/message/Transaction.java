@@ -1,9 +1,9 @@
-package blockchain;
+package com.fibremint.blockchain.message;
 
 import java.io.Serializable;
 
 public class Transaction implements Serializable{
-
+    private static final String SENDER_REGEX = "^[a-z]{4}[0-9]{4}$";
     private String sender;
     private String content;
     private boolean isValid;
@@ -59,7 +59,7 @@ public class Transaction implements Serializable{
         if (sender == null || content == null) {
             return false;
         }
-        if (!sender.matches("^[a-z]{4}[0-9]{4}$")) {
+        if (!sender.matches(SENDER_REGEX)) {
             return false;
         }
         if (content.contains("\\|") || content.length() > 70) {

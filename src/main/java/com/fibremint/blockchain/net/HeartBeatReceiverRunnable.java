@@ -1,4 +1,6 @@
-package blockchain;
+package com.fibremint.blockchain.net;
+
+import com.fibremint.blockchain.message.MessageSenderRunnable;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

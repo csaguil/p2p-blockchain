@@ -1,4 +1,6 @@
-package blockchain;
+package com.fibremint.blockchain.blockchain;
+
+import com.fibremint.blockchain.blockchain.Blockchain;
 
 import java.security.SecureRandom;
 

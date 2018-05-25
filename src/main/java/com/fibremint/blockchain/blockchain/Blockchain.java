@@ -1,4 +1,6 @@
-package blockchain;
+package com.fibremint.blockchain.blockchain;
+
+import com.fibremint.blockchain.message.Transaction;
 
 import java.util.ArrayList;
 import java.util.Base64;

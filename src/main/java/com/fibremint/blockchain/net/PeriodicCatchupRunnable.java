@@ -1,4 +1,7 @@
-package blockchain;
+package com.fibremint.blockchain.net;
+
+import com.fibremint.blockchain.blockchain.Blockchain;
+import com.fibremint.blockchain.message.MessageSenderRunnable;
 
 import java.util.ArrayList;
 import java.util.Date;
